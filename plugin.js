@@ -4,7 +4,7 @@ let cachedCategorias = null;
 let lastFetch = 0;
 
 async function getCategorias() {
-  if (cachedCategorias && (Date.now() - lastFetch < 0)) {
+  if (cachedCategorias && (Date.now() - lastFetch < 300000)) {
     return cachedCategorias;
   }
 
@@ -19,9 +19,6 @@ async function getCategorias() {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
     if (!line) continue;
-
-    // Saltar cualquier directiva que no sea #EXTINF
-    if (line.startsWith('#') && !line.startsWith('#EXTINF:')) continue;
 
     if (line.startsWith('#EXTINF:')) {
       const logoMatch = line.match(/tvg-logo="([^"]+)"/);
@@ -46,8 +43,8 @@ async function getCategorias() {
         .replace(/[\u0300-\u036f]/g, "")
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-+|-+$/g, '');
-      
-      // Se agrega el prefijo para evitar el conflicto con las categorías del sistema
+
+      // Prefijo sv- para evitar conflictos con las categorías nativas de Kino
       const groupId = `sv-${baseId}`;
 
       if (!categoriasMap.has(groupId)) {
@@ -92,7 +89,7 @@ export async function resolve(ref) {
   return {
     url: ref,
     headers: {
-      "User-Agent": "VLC/3.0.16 LibVLC/3.0.16"
+      "User-Agent": "ExoPlayer/2.18.1 (Linux;Android 11)"
     }
   };
 }
