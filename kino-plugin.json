@@ -1,9 +1,9 @@
 {
   "id": "tv-1",
-  "name": "Premiun TV",
+  "name": "PremiumTV",
   "version": "1.0.0",
   "apiVersion": 3,
-  "description": "Canales Premiun y más",
+  "description": "Canales Premium y más",
   "author": "ice-dev-x",
   "icon": "icon.png",
   "entry": "plugin.js",
