@@ -4,7 +4,7 @@ let cachedCategorias = null;
 let lastFetch = 0;
 
 async function getCategorias() {
-  if (cachedCategorias && (Date.now() - lastFetch < 300000)) {
+  if (cachedCategorias && (Date.now() - lastFetch < 0)) {
     return cachedCategorias;
   }
 
@@ -40,12 +40,15 @@ async function getCategorias() {
       currentItem.ref = line;
 
       const groupName = currentItem._groupName;
-      const groupId = groupName
+      const baseId = groupName
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-+|-+$/g, '');
+      
+      // Se agrega el prefijo para evitar el conflicto con las categorías del sistema
+      const groupId = `sv-${baseId}`;
 
       if (!categoriasMap.has(groupId)) {
         categoriasMap.set(groupId, { id: groupId, title: groupName, items: [] });
