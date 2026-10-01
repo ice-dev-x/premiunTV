@@ -13,7 +13,6 @@ async function getCategorias() {
 
   const text = await res.text();
   const lines = text.split('\n');
-
   const categoriasMap = new Map();
   let currentItem = null;
 
@@ -21,21 +20,21 @@ async function getCategorias() {
     const line = lines[i].trim();
     if (!line) continue;
 
-    // Ignorar líneas de opciones VLC, KODIPROP, etc.
-    if (line.startsWith('#EXTVLCOPT') || line.startsWith('#KODIPROP')) continue;
+    // Saltar cualquier directiva que no sea #EXTINF
+    if (line.startsWith('#') && !line.startsWith('#EXTINF:')) continue;
 
     if (line.startsWith('#EXTINF:')) {
       const logoMatch = line.match(/tvg-logo="([^"]+)"/);
       const groupMatch = line.match(/group-title="([^"]+)"/i);
       const titleMatch = line.split(',').pop();
 
-    currentItem = {
-      id: `ch-${i}`,
-      title: titleMatch ? titleMatch.trim() : "Canal Desconocido",
-      kind: "live",
-      poster: logoMatch && logoMatch[1] ? logoMatch[1] : "https://raw.githubusercontent.com/ice-dev-x/premiunTV/main/icon.png",
-      _groupName: groupMatch ? groupMatch[1].trim() : "Otros"
-    };
+      currentItem = {
+        id: `ch-${i}`,
+        title: titleMatch ? titleMatch.trim() : "Canal Desconocido",
+        kind: "live",
+        poster: logoMatch && logoMatch[1] ? logoMatch[1] : "https://placehold.co/300x450/222222/ffffff?text=TV",
+        _groupName: groupMatch ? groupMatch[1].trim() : "Otros"
+      };
 
     } else if (line.startsWith('http') && currentItem) {
       currentItem.ref = line;
@@ -55,10 +54,6 @@ async function getCategorias() {
       delete currentItem._groupName;
       categoriasMap.get(groupId).items.push(currentItem);
       currentItem = null;
-
-    } else if (line.startsWith('#') && currentItem && !line.startsWith('#EXTINF')) {
-      // Cualquier otra línea de directiva desconocida: ignorar pero mantener currentItem
-      continue;
     }
   }
 
