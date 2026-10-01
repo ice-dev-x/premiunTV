@@ -34,7 +34,7 @@ async function getCategorias() {
         id: `ch-${i}`,
         title: titleMatch ? titleMatch.trim() : "Canal Desconocido",
         kind: "live",
-        poster: logoMatch ? logoMatch[1] : "https://raw.githubusercontent.com/ice-dev-x/kino-iptv-org-clean/main/icon.png",
+        poster: logoMatch ? logoMatch[1] : "https://github.com/ice-dev-x/premiunTV/blob/main/icon.png",
         // Guardamos el nombre original del grupo (ej. "Ecuador", "México")
         _groupName: groupMatch ? groupMatch[1].trim() : "Otros" 
       };
@@ -45,7 +45,13 @@ async function getCategorias() {
       const groupName = currentItem._groupName;
       
       // Creamos un ID seguro para Kino sin tildes ni espacios (ej: "Costa Rica" -> "costa-rica")
-      const groupId = groupName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '-');
+      //const groupId = groupName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '-');
+      const groupId = groupName
+  .toLowerCase()
+  .normalize("NFD")
+  .replace(/[\u0300-\u036f]/g, "") // Quita las tildes
+  .replace(/[^a-z0-9]+/g, '-')     // Cambia bloques de caracteres no alfanuméricos por UN solo guion
+  .replace(/^-+|-+$/g, '');        // Elimina los guiones que queden al principio o al final del ID
 
       // Si el país no existe aún en nuestro mapa, lo creamos
       if (!categoriasMap.has(groupId)) {
