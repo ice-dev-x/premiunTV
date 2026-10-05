@@ -116,8 +116,14 @@ export async function liveChannels({ categoryId }) {
 }
 
 export async function resolve(ref) {
+  // O bien puedes probar con un User-Agent de navegador común si el flujo lo requiere:
+  // "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+  
   return {
     url: ref,
-    headers: { "User-Agent": "ExoPlayer/2.18.1 (Linux;Android 11)" }
+    headers: { 
+      "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36",
+      "Referer": "https://www.google.com/" // A veces los streams validan el origen
+    }
   };
 }

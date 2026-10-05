@@ -1,8 +1,8 @@
 {
   "id": "premiun-tv",
   "name": "PremiumTV",
-  "version": "1.7.0",
-  "apiVersion": 3,
+  "version": "1.8.0",
+  "apiVersion": 4,
   "description": "Canales Premium y más",
   "author": "ice-dev-x",
   "icon": "icon.png",
