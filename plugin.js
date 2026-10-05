@@ -116,11 +116,31 @@ export async function liveChannels({ categoryId }) {
 }
 
 export async function resolve(ref) {
-  // O bien puedes probar con un User-Agent de navegador común si el flujo lo requiere:
-  // "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+  let targetUrl = ref;
   
-  return {
-    url: ref
-    
-    };
+  // Si es un enlace acortado/redirección de jmp2.uk, seguimos el salto HTTP
+  if (ref.includes("jmp2.uk")) {
+    try {
+      const res = await kino.fetch(ref, { 
+        redirect: "follow",
+        headers: { 
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" 
+        }
+      });
+      if (res.url) {
+        targetUrl = res.url;
+      }
+    } catch (e) {
+      // Si falla la redirección, mantenemos el original como respaldo
+      targetUrl = ref;
+    }
   }
+
+  return {
+    url: targetUrl,
+    headers: { 
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "Referer": "https://www.samsung.com/" // Referer habitual para streams de Samsung TV Plus
+    }
+  };
+}
