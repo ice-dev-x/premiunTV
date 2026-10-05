@@ -1,14 +1,14 @@
 {
-  "id": "iptv-local",
-  "name": "IPTV Local",
-  "version": "1.0.0",
+  "id": "premiun-tv",
+  "name": "PremiumTV",
+  "version": "1.7.0",
   "apiVersion": 3,
-  "description": "Canales en vivo",
+  "description": "Canales Premium y más",
   "author": "ice-dev-x",
-  "icon": "icon1.png",
+  "icon": "icon.png",
   "entry": "plugin.js",
   "hosts": [
-    "190.60.32.178:8178"
+    "raw.githubusercontent.com"
   ],
   "capabilities": [
     "home",
@@ -16,5 +16,5 @@
     "channels"
   ],
   "liveStreamHosts": "any",
-  "color": "#2b4ed9"
+  "color": "#a60c30"
 }
