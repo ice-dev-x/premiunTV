@@ -1,10 +1,10 @@
 {
   "id": "premiun-tv",
   "name": "PremiumTV",
-  "version": "1.8.7",
+  "version": "1.8.8",
   "apiVersion": 4,
   "description": "Canales Premium y más",
-  "author": "ice-dev-x",
+  "author": "sadmachine",
   
   "entry": "plugin.js",
   "hosts": [
