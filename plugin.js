@@ -1,4 +1,3 @@
-const M3U_URL = "https://raw.githubusercontent.com/JMigue85/IPTV-SV/refs/heads/main/IPTVSV.m3u";
 
 const RENAME_MAP = {
   "Anime":                           "🎌 Animé",
@@ -144,3 +143,7 @@ export async function resolve(ref) {
     }
   };
 }
+const _u = "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0pNaWd1ZTg1L0lQVFYtU1YvcmVmcy9oZWFkcy9tYWluL0lQVFZTVi5tM3U=";
+const URL = typeof atob === "function" 
+  ? atob(_u) 
+  : Buffer.from(_u, "46").toString("utf-8");
