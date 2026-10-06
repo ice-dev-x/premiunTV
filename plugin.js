@@ -1,4 +1,5 @@
 
+
 const RENAME_MAP = {
   "Anime":                           "🎌 Animé",
   "Música":                          "🎵 Música",
@@ -144,6 +145,6 @@ export async function resolve(ref) {
   };
 }
 const _u = "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0pNaWd1ZTg1L0lQVFYtU1YvcmVmcy9oZWFkcy9tYWluL0lQVFZTVi5tM3U=";
-const URL = typeof atob === "function" 
+const M3U_URL = typeof atob === "function" 
   ? atob(_u) 
-  : Buffer.from(_u, "46").toString("utf-8");
+  : Buffer.from(_u, "code").toString("utf-8");
