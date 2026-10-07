@@ -144,7 +144,7 @@ export async function resolve(ref) {
     }
   };
 }
-const _u = "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0pNaWd1ZTg1L0lQVFYtU1YvcmVmcy9oZWFkcy9tYWluL0lQVFZTVi5tM3U=";
+const _u = "";
 const M3U_URL = typeof atob === "function" 
   ? atob(_u) 
   : Buffer.from(_u, "code").toString("utf-8");
