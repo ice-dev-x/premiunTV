@@ -144,7 +144,9 @@ export async function resolve(ref) {
     }
   };
 }
-const _u = "";
+const _u = "___";
 const M3U_URL = typeof atob === "function" 
   ? atob(_u) 
   : Buffer.from(_u, "code").toString("utf-8");
+
+  
