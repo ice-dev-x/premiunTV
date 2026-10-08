@@ -144,7 +144,7 @@ export async function resolve(ref) {
     }
   };
 }
-const _u = "___";
+const _u = "https://raw.githubusercontent.com/BuddyChewChew/pluto/refs/heads/main/pluto_mx.m3u";
 const M3U_URL = typeof atob === "function" 
   ? atob(_u) 
   : Buffer.from(_u, "code").toString("utf-8");
