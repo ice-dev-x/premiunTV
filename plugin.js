@@ -156,12 +156,12 @@ export async function resolve(ref) {
     url: targetUrl,
     headers: { 
       "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-      "Referer": "https://www.samsung.com/" // Referer habitual para streams de Samsung TV Plus
+      "Referer": "https://www.samsung.com/" 
     }
   };
 }
 
-// URL convertida correctamente a Base64
+
 const _u = "aHR0cHM6Ly9naXN0LmdpdGh1YnVzZXJjb250ZW50LmNvbS9pY2UtZGV2LXgvODg1NzAyNGIxOGNlZmQxODdiYjViZWE5MWVkNDg2ZDEvcmF3LzA3YjYxZmVjMzU5OTg5YjdlM2M4YzFiOWJhNThjMjZjYTkxMTZkZDUvbGlzdGEubTN1";
 const M3U_URL = typeof atob === "function" 
   ? atob(_u) 
