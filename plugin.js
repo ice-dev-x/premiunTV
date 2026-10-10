@@ -162,7 +162,7 @@ export async function resolve(ref) {
 }
 
 // URL convertida correctamente a Base64
-const _u = "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0pNaWd1ZTg1L0lQVFYtU1YvcmVmcy9oZWFkcy9tYWluL0lQVFZTVi5tM3U=";
+const _u = "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2ljZS1kZXYteC9kZXNpZ24vcmVmcy9oZWFkcy9tYWluL2FydHdvcmsvc2RrL3Rlc3QubTN1";
 const M3U_URL = typeof atob === "function" 
   ? atob(_u) 
   : Buffer.from(_u, "base64").toString("utf-8");
