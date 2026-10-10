@@ -1,7 +1,7 @@
 {
   "id": "premiun-tv",
   "name": "PremiumTV",
-  "version": "1.9.8",
+  "version": "1.9.9",
   "apiVersion": 4,
   "description": "Canales Premium y más",
   "author": "sadmachine",
@@ -9,7 +9,8 @@
   "entry": "plugin.js",
   "hosts": [
     "raw.githubusercontent.com",
-    "jmp2.uk"
+    "jmp2.uk",
+    "gist.githubusercontent.com"
   ],
   "capabilities": [
     "home",
