@@ -1,5 +1,3 @@
-
-
 const RENAME_MAP = {
   "Anime":                           "🎌 Animé",
   "Música":                          "🎵 Música",
@@ -41,10 +39,17 @@ async function getCategorias() {
     return cachedCategorias;
   }
 
-  const res = await kino.fetch(M3U_URL);
-  if (!res.ok) return [];
+  let text;
+  try {
+    const res = await kino.fetch(M3U_URL);
+    if (!res.ok) throw new Error("Fallo al descargar la lista");
+    text = await res.text();
+  } catch (error) {
+    // Si la descarga falla, intentamos devolver la última lista buena guardada
+    const backup = await kino.storage.get("backup_categorias");
+    return backup || [];
+  }
 
-  const text = await res.text();
   const lines = text.split('\n');
   const categoriasMap = new Map();
   let currentItem = null;
@@ -61,16 +66,19 @@ async function getCategorias() {
       const rawGroup = groupMatch ? groupMatch[1].trim() : "Otros";
 
       currentItem = {
-        id: `ch-${i}`,
+        // El id se asignará cuando tengamos la URL en la siguiente línea
         title: titleMatch ? titleMatch.trim() : "Canal Desconocido",
         kind: "live",
-        poster: logoMatch && logoMatch[1] ? logoMatch[1] : "https://placehold.co/300x450/222222/ffffff?text=TV",
+        logo: logoMatch && logoMatch[1] ? logoMatch[1] : "https://placehold.co/300x450/222222/ffffff?text=TV",
         _groupName: rawGroup,
         _displayName: RENAME_MAP[rawGroup] || rawGroup,
       };
 
     } else if (line.startsWith('http') && currentItem) {
       currentItem.ref = line;
+      
+      // Asignar un ID estable usando la URL del canal para evitar que cambien de posición
+      currentItem.id = "ch-" + kino.crypto.hash("sha1", line).slice(0, 16);
 
       const groupId = `sv-${currentItem._groupName
         .toLowerCase()
@@ -92,6 +100,14 @@ async function getCategorias() {
 
   cachedCategorias = Array.from(categoriasMap.values());
   lastFetch = Date.now();
+
+  // Guardar la lista válida para cuando falle la descarga en el futuro
+  try {
+    await kino.storage.set("backup_categorias", cachedCategorias);
+  } catch (e) {
+    // Silenciamos posibles errores de guardado si la API de storage no está lista
+  }
+
   return cachedCategorias;
 }
 
@@ -144,9 +160,9 @@ export async function resolve(ref) {
     }
   };
 }
-const _u = "https://raw.githubusercontent.com/BuddyChewChew/pluto/refs/heads/main/pluto_mx.m3u";
+
+// URL convertida correctamente a Base64
+const _u = "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0pNaWd1ZTg1L0lQVFYtU1YvcmVmcy9oZWFkcy9tYWluL0lQVFZTVi5tM3U=";
 const M3U_URL = typeof atob === "function" 
   ? atob(_u) 
-  : Buffer.from(_u, "code").toString("utf-8");
-
-  
+  : Buffer.from(_u, "base64").toString("utf-8");
