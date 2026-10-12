@@ -98,7 +98,9 @@ async function getCategorias() {
     }
   }
 
-  cachedCategorias = Array.from(categoriasMap.values());
+  
+  cachedCategorias = Array.from(categoriasMap.values()).filter(cat => cat.title !== "El Salvador - TCS");
+  
   lastFetch = Date.now();
 
   // Guardar la lista válida para cuando falle la descarga en el futuro
