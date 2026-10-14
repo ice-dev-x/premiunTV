@@ -164,7 +164,7 @@ export async function resolve(ref) {
 }
 
 
-const _u = "aHR0cHM6Ly9naXN0LmdpdGh1YnVzZXJjb250ZW50LmNvbS9pY2UtZGV2LXgvODg1NzAyNGIxOGNlZmQxODdiYjViZWE5MWVkNDg2ZDEvcmF3LzA3YjYxZmVjMzU5OTg5YjdlM2M4YzFiOWJhNThjMjZjYTkxMTZkZDUvbGlzdGEubTN1";
+const _u = "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2ljZS1kZXYteC9kZXNpZ24vcmVmcy9oZWFkcy9tYWluL2FydHdvcmsvc2RrL3Rlc3QubTN1";
 const M3U_URL = typeof atob === "function" 
   ? atob(_u) 
   : Buffer.from(_u, "base64").toString("utf-8");
