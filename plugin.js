@@ -99,7 +99,7 @@ async function getCategorias() {
   }
 
   
-  cachedCategorias = Array.from(categoriasMap.values()).filter(cat => cat.title !== "El Salvador - TCS");
+  cachedCategorias = Array.from(categoriasMap.values()).filter(cat => cat.title !== "El Salvador - TCS" ,"El Salvador", "TV Chichicasteca");
   
   lastFetch = Date.now();
 
